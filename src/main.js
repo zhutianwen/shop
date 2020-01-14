@@ -6,7 +6,20 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
+
+//引入vant
+import Vant from 'vant';
+import 'vant/lib/index.css';
+Vue.use(Vant);
+
+//引入阿里巴巴矢量图标
+import './fonts/iconfont.css'
+
+//引入公共js
+import 'assets/js/common.js'
+
+
+
 new Vue({
   el: '#app',
   router,
