@@ -29,3 +29,9 @@ export default {
 }
 </script>
 
+<style>
+    .swiper{
+        padding-top: 1.3rem;
+    }
+</style>
+

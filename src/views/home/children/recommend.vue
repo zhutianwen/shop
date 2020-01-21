@@ -40,7 +40,7 @@ export default {
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
-        padding-bottom: 1.5rem;
+        padding-bottom: 0.8rem;
     }
     .recommend-item{
         text-align: center;

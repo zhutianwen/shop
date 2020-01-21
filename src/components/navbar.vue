@@ -24,6 +24,10 @@ export default {
         line-height: 1.3rem;
         height:1.3rem;
         text-align: center;
+        position: fixed;
+        z-index: 99;
+        width: 100%;
+        box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, .1);
     }
     .left,.right{
         width:1.6rem;
