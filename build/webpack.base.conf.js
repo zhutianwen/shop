@@ -23,8 +23,8 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
+    extensions: ['.js', '.vue', '.json'], //省去文件后缀
+    alias: {   //别名
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       'assets':'@/assets',

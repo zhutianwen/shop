@@ -12,11 +12,6 @@
         <!-- <tabControl :titles="titles"></tabControl> -->
         <!-- 商品列表 -->
         <goodlist :goods=" goods['pop'].list "></goodlist>
-        <!-- <div class="goods-list" v-masonry transition-duration="0.3s" item-selector=".item">
-            <div v-masonry-tile class="item" horizontal-order="true" fit-width="true" v-for="(item, index) in goods['pop'].list" :key="index">
-                <img :src="item.show.img" alt="">
-            </div>
-        </div> -->
 
         
 
@@ -28,10 +23,10 @@
 import {getHomemultidata,getGoodsList} from 'network/home.js' //没有default 加大括号
 
 
-import recommend from './children/recommend' //有default 不用加
 import swiper from './children/swiper'
-import navbar from 'components/navbar'
+import recommend from './children/recommend' //有default 不用加
 
+import navbar from 'components/navbar'
 import tabControl from 'components/tabControl/tabControl'
 import goodlist from 'components/goods/goodlist'
 
@@ -68,8 +63,9 @@ export default {
         },
         getGoodsList(type){
             const page = this.goods[type].page+1
-            getGoodsList(type,1).then(res=>{
-            console.log(res)
+            getGoodsList(type,page).then(res=>{
+            // getGoodsList(type,1).then(res=>{
+            // console.log(res)
             this.goods[type].list.push(...res.data.list)
             this.goods[type].page+1 //处理完 页码加一
         })

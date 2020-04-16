@@ -1,8 +1,8 @@
 <template>
-    <div class="goods-item item" v-masonry-tile>
+    <div class="goods-item item">
         <img :src="goodsItem.show.img" alt="">
-        <div class="goodsItem-title">{{goodsItem.title}}</div>
         <div class="price-collect">
+            <div class="goodsItem-title">{{goodsItem.title}}</div>
             <span class="price">￥{{goodsItem.price}}</span>
             <span class="collect">
               <span class="iconfont icon-shoucang"></span> {{goodsItem.cfav}}
@@ -26,21 +26,29 @@ export default {
 </script>
 
 <style>
-   .item{
+   /* .item{
         background: #fff;
         width: 48%;
         margin-left: 1%;
         margin-top: 0.2rem;
         border-bottom-left-radius: 8px;   
         border-bottom-right-radius: 8px;
+    } */
+    .item{
+        width: 49%;
+        background: #fff;
+        border-bottom-left-radius: 8px;   
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 8px;   
+        border-top-right-radius: 8px;
     }
-    .item,.item img{
+    .item img{
         border-top-left-radius: 8px;   
         border-top-right-radius: 8px;
     }
     .goodsItem-title{
         font-size: 0.05rem;
-        padding: 0 0.2rem;
+        /* padding: 0 0.2rem; */
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;

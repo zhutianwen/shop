@@ -27,6 +27,7 @@ export default {
     methods:{
         change(index){
             this.currentIndex = index
+            // console.log(this.currentIndex)
         },
     },
 }

@@ -19,8 +19,8 @@ import './fonts/iconfont.css'
 import 'assets/js/common.js'
 
 //引入瀑布流插件
-import {VueMasonryPlugin} from 'vue-masonry';
-Vue.use(VueMasonryPlugin)
+// import {VueMasonryPlugin} from 'vue-masonry';
+// Vue.use(VueMasonryPlugin)
 // import waterfall from 'vue-waterfall2'
 // Vue.use(waterfall)
 

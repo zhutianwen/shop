@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export function request(config){
+export function request(config){ //封装函数
     //1.创建axios实例
     const instance = axios.create({
         baseURL:'http://152.136.185.210:8000/api/h8',
@@ -21,5 +21,5 @@ export function request(config){
         console.log(err)
     })
     // 3.发送真正的网络请求
-    return instance(config)
+    return instance(config)  //返回promise 可以.then调用
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="goods-list" v-masonry gutter = 5 transition-duration="0.3s" item-selector=".item">
+    <div class="goods-list">
        <goodListitem v-for="(item,index) in goods" :goodsItem='item' :key="index"></goodListitem>
     </div>
 </template>
@@ -29,6 +29,9 @@ export default {
 
 <style>
     .goods-list{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
         width: 97%;
         margin: 0 auto;
         margin-top: 0.4rem;

@@ -5,7 +5,6 @@
             <van-tabbar-item @click="goCategory" class="iconfont icon-tabbar icon-fenlei-0">分类</van-tabbar-item>
             <van-tabbar-item @click="goCart" class="iconfont icon-tabbar icon-gouwuche">购物车</van-tabbar-item>
             <van-tabbar-item @click="goMine" class="iconfont icon-tabbar icon-wodedangxuan">我的
-
             </van-tabbar-item>
         </van-tabbar>
     </div>
