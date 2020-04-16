@@ -35,12 +35,13 @@ export default {
         border-bottom-right-radius: 8px;
     } */
     .item{
-        width: 49%;
+        /* width: 49%; */
         background: #fff;
         border-bottom-left-radius: 8px;   
         border-bottom-right-radius: 8px;
         border-top-left-radius: 8px;   
         border-top-right-radius: 8px;
+        margin-top: 0.15rem;
     }
     .item img{
         border-top-left-radius: 8px;   
