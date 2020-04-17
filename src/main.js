@@ -19,11 +19,14 @@ import './fonts/iconfont.css'
 import 'assets/js/common.js'
 
 //引入瀑布流插件
-// import {VueMasonryPlugin} from 'vue-masonry';
-// Vue.use(VueMasonryPlugin)
 import waterfall from 'vue-waterfall2'
 Vue.use(waterfall)
 
+//引入vue 懒加载模块
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload,{
+  loading:require('assets/images/loading.gif')
+})
 
 new Vue({
   el: '#app',

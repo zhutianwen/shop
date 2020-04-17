@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper" ref="wapper">
         <div class="content">
-            <slot></slot>
+            <slot></slot> <!-- 替换scroll中的内容 -->
         </div>
     </div>
 </template>
@@ -16,7 +16,7 @@
         },
         mounted(){
             this.scroll = new BSroll(this.$refs.wapper,{
-
+                click:true
             })
         }   
     }
