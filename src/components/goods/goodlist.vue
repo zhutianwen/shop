@@ -50,15 +50,23 @@ export default {
 <style>
     .goods-list{
         /* display: flex;
-        justify-content: space-between; */
-        /* flex-wrap: wrap; */
+        justify-content: space-between;
+        flex-wrap: wrap; 
         width: 97%;
         margin: 0 auto;
         margin-top: 0.4rem;
-        margin-bottom: 1.8rem;
+        margin-bottom: 1.8rem;*/
+    }
+    .vue-waterfall {
+        width: 98%!important;
+        margin: 0 auto;
+    }
+    .vue-waterfall-column:nth-child(2){
+        margin-right: 2%;
     }
    .vue-waterfall-column{
-       margin-bottom:1.5rem;
+       width: 49%!important;
+       margin-bottom:1.4rem;
    }
     
 </style>

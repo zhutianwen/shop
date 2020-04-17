@@ -3,16 +3,18 @@
         <navbar class="home-nav">
             <div slot="center">享 购</div>
         </navbar>
-        <!-- 轮播 -->
-        <swiper :banner="banner"></swiper>
-        <!-- 推荐 -->
-       <recommend :recommend="recommend"></recommend>
-        <!-- 选项卡 -->
-         <tabControl class="tab-position" :titles="['流行','新款','精选']"></tabControl>
-        <!-- <tabControl :titles="titles"></tabControl> -->
-        <!-- 商品列表 -->
-        <goodlist :goods=" goods['pop'].list "></goodlist>
-
+        <scroll class="home-scroll">
+            <!-- 轮播 -->
+            <swiper :banner="banner"></swiper>
+            <!-- 推荐 -->
+            <recommend :recommend="recommend"></recommend>
+            <!-- 选项卡 -->
+            <tabControl class="tab-position" :titles="['流行','新款','精选']" @tabclick="tabclick" ></tabControl>   <!-- v-on:tabclick 监听点击事件 -->
+            <!-- <tabControl :titles="titles"></tabControl> -->
+            <!-- 商品列表 -->
+            <goodlist :goods="showGoods"></goodlist>
+            <!-- <goodlist :goods=" goods['pop'].list "></goodlist> -->
+        </scroll>
         
 
     </div>
@@ -29,6 +31,7 @@ import recommend from './children/recommend' //有default 不用加
 import navbar from 'components/navbar'
 import tabControl from 'components/tabControl/tabControl'
 import goodlist from 'components/goods/goodlist'
+import scroll from 'components/scroll'
 
 export default {
     data(){
@@ -44,7 +47,13 @@ export default {
                 'pop':{ page:0, list:[] },
                 'new':{ page:0, list:[] },
                 'sell':{ page:0, list:[] },
-            }
+            },
+            currentType:'pop'
+        }
+    },
+    computed:{ //计算显示goods
+        showGoods(){
+            return this.goods[this.currentType].list
         }
     },
     created(){
@@ -54,6 +63,22 @@ export default {
         this.getGoodsList('sell')
     },
     methods:{
+        //事件监听方法
+        tabclick(index){
+            // console.log(index);
+            switch(index){
+                case 0:
+                  this.currentType = "pop" 
+                  break   
+                case 1:
+                  this.currentType = "new" 
+                  break   
+                case 2:
+                  this.currentType = "sell"   
+                  break 
+            }
+        },
+        // 网络请求方法
         getHomemultidata(){//包装一层方法
             getHomemultidata().then(res=>{
                 // console.log(res)
@@ -77,6 +102,7 @@ export default {
         recommend,
         tabControl,
         goodlist,
+        scroll
     },
 }
 </script>
@@ -84,6 +110,8 @@ export default {
 <style>
     .home{
          background:#f6f6f6 ;
+         height: 100vh;
+         position: relative;
     }
     .home-nav{
         background: #ee7b85;
@@ -100,7 +128,15 @@ export default {
         top:1.3rem;
         background: #fff;
     }
-   
+   .home-scroll{
+       /* height: calc(100% - 1.65rem); */
+       overflow: hidden;
+       position: absolute;
+       top: 0;
+       bottom: 0;
+       left: 0;
+       right: 0;
+   }
    
  
 </style>

@@ -28,6 +28,7 @@ export default {
         change(index){
             this.currentIndex = index
             // console.log(this.currentIndex)
+            this.$emit('tabclick',index)//将事件从内部传出去 home页面监听此点击事件
         },
     },
 }
