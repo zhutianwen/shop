@@ -3,7 +3,7 @@
         <navbar class="home-nav">
             <div slot="center">享 购</div>
         </navbar>
-        <scroll class="home-scroll">
+        <scroll class="home-scroll" ref="scroll" :probe-type="3" @scroll="contentScroll">
             <!-- 轮播 -->
             <swiper :banner="banner"></swiper>
             <!-- 推荐 -->
@@ -15,8 +15,8 @@
             <goodlist :goods="showGoods"></goodlist>
             <!-- <goodlist :goods=" goods['pop'].list "></goodlist> -->
         </scroll>
-        
-
+        <!-- 回到顶部图标 -->
+        <backtop @click.native="backtop" v-show="isShow"></backtop><!-- 监听组件点击事件 加上native--->
     </div>
 </template>
 
@@ -32,6 +32,7 @@ import navbar from 'components/navbar'
 import tabControl from 'components/tabControl/tabControl'
 import goodlist from 'components/goods/goodlist'
 import scroll from 'components/scroll'
+import backtop from 'components/backTop'
 
 export default {
     data(){
@@ -48,7 +49,8 @@ export default {
                 'new':{ page:0, list:[] },
                 'sell':{ page:0, list:[] },
             },
-            currentType:'pop'
+            currentType:'pop',
+            isShow:false,
         }
     },
     computed:{ //计算显示goods
@@ -78,6 +80,13 @@ export default {
                   break 
             }
         },
+        backtop(){
+            this.$refs.scroll.scrollTo(0,0);
+        },
+        contentScroll(position){
+            // console.log(position)
+            this.isShow = -position.y > 1000
+        },
         // 网络请求方法
         getHomemultidata(){//包装一层方法
             getHomemultidata().then(res=>{
@@ -102,7 +111,8 @@ export default {
         recommend,
         tabControl,
         goodlist,
-        scroll
+        scroll,
+        backtop
     },
 }
 </script>
@@ -124,7 +134,7 @@ export default {
         opacity: 1;
     }
     .tab-position{
-        position: sticky;
+        /* position: sticky; */
         top:1.3rem;
         background: #fff;
     }
