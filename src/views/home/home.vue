@@ -3,7 +3,13 @@
         <navbar class="home-nav">
             <div slot="center">享 购</div>
         </navbar>
-        <scroll class="home-scroll" ref="scroll" :probe-type="3" @scroll="contentScroll">
+        <!--   @pullingUp="loadMore" -->
+        <scroll class="home-scroll"
+         ref="scroll"
+          :pull-up-load="true"
+         
+            :probe-type="3"
+             @scroll="contentScroll">
             <!-- 轮播 -->
             <swiper :banner="banner"></swiper>
             <!-- 推荐 -->
@@ -33,6 +39,7 @@ import tabControl from 'components/tabControl/tabControl'
 import goodlist from 'components/goods/goodlist'
 import scroll from 'components/scroll'
 import backtop from 'components/backTop'
+import { delay } from 'q'
 
 export default {
     data(){
@@ -64,6 +71,14 @@ export default {
         this.getGoodsList('new')
         this.getGoodsList('sell')
     },
+    mounted(){
+        const refresh = this.debounce(this.$refs.scroll.refresh,200)
+         //监听img加载
+        this.$bus.$on('itemtmg',()=>{
+            refresh()
+            // this.$refs.scroll.refresh()
+        })
+    },
     methods:{
         //事件监听方法
         tabclick(index){
@@ -87,6 +102,23 @@ export default {
             // console.log(position)
             this.isShow = -position.y > 1000
         },
+        // 防抖动
+        debounce(func,delay){
+            let timer = null
+            return function(...args){
+                if(timer) clearTimeout(timer)
+                timer = setTimeout(()=>{
+                    func.apply(this,args)
+                },delay)
+            }
+        },
+        // loadMore(){
+        //     //  console.log('上拉加载更多')
+        //     this.getGoodsList(this.currentType);
+        //     //刷新
+        //     this.$refs.scroll.scroll.refresh();
+            
+        // },
         // 网络请求方法
         getHomemultidata(){//包装一层方法
             getHomemultidata().then(res=>{
@@ -102,6 +134,8 @@ export default {
             // console.log(res)
             this.goods[type].list.push(...res.data.list)
             this.goods[type].page+1 //处理完 页码加一
+
+            // this.$refs.scroll.finishPullUp()
         })
         }
     },

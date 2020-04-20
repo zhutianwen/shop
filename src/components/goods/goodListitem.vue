@@ -1,6 +1,6 @@
 <template>
     <div class="goods-item item">
-        <img v-lazy="goodsItem.show.img" alt="">
+        <img v-lazy="goodsItem.show.img" alt="" @load="imageLoad">
         <div class="price-collect">
             <div class="goodsItem-title">{{goodsItem.title}}</div>
             <span class="price">￥{{goodsItem.price}}</span>
@@ -21,6 +21,12 @@ export default {
                 return {}
             }
         }
+    },
+    methods:{
+        imageLoad(){
+            // console.log('imageLoad')
+            this.$bus.$emit('itemtmg')
+        },
     },
 }
 </script>
