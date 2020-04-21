@@ -19,10 +19,10 @@
                 type:Number,
                 default:0
             },
-            // pullUpLoad:{
-            //     type:Boolean,
-            //     default:false
-            // },
+            pullUpLoad:{
+                type:Boolean,
+                default:false
+            },
         },
         mounted(){
             //1.创建bscroll对象
@@ -37,9 +37,9 @@
                 this.$emit('scroll',position) //定义scroll方法  传入position参数
             });
             //3.监听上拉事件
-            // this.scroll.on('pullingUp',()=>{
-            //     this.$emit('pullingUp') //定义pullingUp方法  
-            // })
+            this.scroll.on('pullingUp',()=>{
+                this.$emit('pullingUp') //定义pullingUp方法  
+            })
             // console.log(this.scroll)
         },
         methods:{
@@ -47,7 +47,7 @@
                 this.scroll && this.scroll.scrollTo(x,y,time)
             },
             finishPullUp(){
-                this.scroll.finishPullUp()
+               this.scroll && this.scroll.finishPullUp()
             },
             refresh(){
                 // console.log('//////')

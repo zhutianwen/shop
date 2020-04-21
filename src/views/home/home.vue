@@ -3,19 +3,29 @@
         <navbar class="home-nav">
             <div slot="center">享 购</div>
         </navbar>
-        <!--   @pullingUp="loadMore" -->
+        <!--    -->
+        <tabControl
+             class="tab-position home-tab"
+              :titles="['流行','新款','精选']"
+               @tabclick="tabclick"
+                ref="tabTop1" v-show="isTabFixed"></tabControl> 
+        <!--  -->
         <scroll class="home-scroll"
          ref="scroll"
           :pull-up-load="true"
-         
+            @pullingUp="loadMore"
             :probe-type="3"
              @scroll="contentScroll">
             <!-- 轮播 -->
-            <swiper :banner="banner"></swiper>
+            <swiper :banner="banner" @swiperImg="swiperImg"></swiper>
             <!-- 推荐 -->
             <recommend :recommend="recommend"></recommend>
             <!-- 选项卡 -->
-            <tabControl class="tab-position" :titles="['流行','新款','精选']" @tabclick="tabclick" ></tabControl>   <!-- v-on:tabclick 监听点击事件 -->
+            <tabControl
+             class="tab-position"
+              :titles="['流行','新款','精选']"
+               @tabclick="tabclick"
+                ref="tabTop2"></tabControl>   <!-- v-on:tabclick 监听点击事件 -->
             <!-- <tabControl :titles="titles"></tabControl> -->
             <!-- 商品列表 -->
             <goodlist :goods="showGoods"></goodlist>
@@ -39,7 +49,7 @@ import tabControl from 'components/tabControl/tabControl'
 import goodlist from 'components/goods/goodlist'
 import scroll from 'components/scroll'
 import backtop from 'components/backTop'
-import { delay } from 'q'
+import { debounce } from 'components/utils/utils'
 
 export default {
     data(){
@@ -58,6 +68,9 @@ export default {
             },
             currentType:'pop',
             isShow:false,
+            tabOffsetTop:0,
+            isTabFixed:false,
+            isNav:true
         }
     },
     computed:{ //计算显示goods
@@ -72,12 +85,13 @@ export default {
         this.getGoodsList('sell')
     },
     mounted(){
-        const refresh = this.debounce(this.$refs.scroll.refresh,200)
+        const refresh = debounce(this.$refs.scroll.refresh,50)
          //监听img加载
         this.$bus.$on('itemtmg',()=>{
             refresh()
             // this.$refs.scroll.refresh()
         })
+        
     },
     methods:{
         //事件监听方法
@@ -94,31 +108,40 @@ export default {
                   this.currentType = "sell"   
                   break 
             }
+            this.$refs.tabTop1.currentIndex = index
+            this.$refs.tabTop2.currentIndex = index
         },
         backtop(){
             this.$refs.scroll.scrollTo(0,0);
         },
         contentScroll(position){
-            // console.log(position)
+            // console.log(position) 
             this.isShow = -position.y > 1000
+            //决定tabcontrol 是否吸顶
+            this.isTabFixed = -position.y > this.tabOffsetTop
+        },
+        swiperImg(){
+            // 获取tabocontrol的距离
+            // 所有组件都有一个属性 $el  用于获取组件中的元素
+            this.tabOffsetTop = this.$refs.tabTop2.$el.offsetTop
+
         },
         // 防抖动
-        debounce(func,delay){
-            let timer = null
-            return function(...args){
-                if(timer) clearTimeout(timer)
-                timer = setTimeout(()=>{
-                    func.apply(this,args)
-                },delay)
-            }
-        },
-        // loadMore(){
-        //     //  console.log('上拉加载更多')
-        //     this.getGoodsList(this.currentType);
-        //     //刷新
-        //     this.$refs.scroll.scroll.refresh();
-            
+        // debounce(func,delay){
+        //     let timer = null
+        //     return function(...args){
+        //         if(timer) clearTimeout(timer)
+        //         timer = setTimeout(()=>{
+        //             func.apply(this,args)
+        //         },delay)
+        //     }
         // },
+        loadMore(){
+            //  console.log('上拉加载更多')
+            this.getGoodsList(this.currentType);
+            //刷新
+            // this.$refs.scroll.scroll.refresh();
+        },
         // 网络请求方法
         getHomemultidata(){//包装一层方法
             getHomemultidata().then(res=>{
@@ -135,7 +158,7 @@ export default {
             this.goods[type].list.push(...res.data.list)
             this.goods[type].page+1 //处理完 页码加一
 
-            // this.$refs.scroll.finishPullUp()
+            this.$refs.scroll.finishPullUp() //完成上拉加载
         })
         }
     },
@@ -169,19 +192,23 @@ export default {
     }
     .tab-position{
         /* position: sticky; */
-        top:1.3rem;
         background: #fff;
     }
    .home-scroll{
        /* height: calc(100% - 1.65rem); */
        overflow: hidden;
        position: absolute;
-       top: 0;
-       bottom: 0;
+       top: 1.3rem;
+       bottom: 1.35rem;
        left: 0;
        right: 0;
+       /* border: 1px solid; */
    }
-   
+  .home-tab{
+      position: relative;
+      z-index: 9;
+      top:1.3rem 
+  }
  
 </style>
 
