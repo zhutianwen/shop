@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <router-view/>
+    <keep-alive exclude="goodListDetails">
+      <router-view/>
+    </keep-alive>
     <tabbar></tabbar>
   </div>
 </template>

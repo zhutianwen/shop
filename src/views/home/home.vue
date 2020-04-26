@@ -70,7 +70,8 @@ export default {
             isShow:false,
             tabOffsetTop:0,
             isTabFixed:false,
-            isNav:true
+            isNav:true,
+            saveY:0
         }
     },
     computed:{ //计算显示goods
@@ -78,8 +79,19 @@ export default {
             return this.goods[this.currentType].list
         }
     },
+    activated(){//进入页面
+        // console.log('activated'); 
+        this.$refs.scroll.scrollTo(0,this.saveY,0);
+        this.$refs.scroll.refresh();
+    },
+    deactivated(){//离开页面
+        // console.log('deactivated');
+        this.saveY = this.$refs.scroll.scroll.y //获取离开时bscroll的位置
+    },
     created(){
-        this.getHomemultidata()
+        this.getHomemultidata();
+        // console.log(getHomemultidata());
+        
         this.getGoodsList('pop')
         this.getGoodsList('new')
         this.getGoodsList('sell')

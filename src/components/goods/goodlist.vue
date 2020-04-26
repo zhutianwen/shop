@@ -9,11 +9,10 @@
         </waterfall>
     </div>
 </template>
+
 <script>
+
 import goodListitem from './goodListitem'
-
-
-
 
 export default {
     name:'goodlist',
@@ -59,6 +58,7 @@ export default {
     }
     .vue-waterfall {
         width: 98%!important;
+
         margin: 0 auto;
     }
     .vue-waterfall-column:nth-child(2){

@@ -1,5 +1,5 @@
 <template>
-    <div class="goods-item item">
+    <div class="goods-item item" @click="itemClick">
         <img v-lazy="goodsItem.show.img" alt="" @load="imageLoad">
         <div class="price-collect">
             <div class="goodsItem-title">{{goodsItem.title}}</div>
@@ -26,6 +26,14 @@ export default {
         imageLoad(){
             // console.log('imageLoad')
             this.$bus.$emit('itemtmg')
+        },
+        itemClick(){
+            this.$router.push({
+                path:'/goodListDetails',
+                query: {
+                    id:this.goodsItem.iid
+                }
+            })
         },
     },
 }
