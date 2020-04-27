@@ -2,10 +2,14 @@
     <div class="goodListDetails">
         <!-- 导航栏 -->
         <Details></Details>
-        <!-- 商品轮播图 -->
-        <detailSwiper :topImgList="topImgList"></detailSwiper>
-        <!-- 商品信息 -->
-        <detailsInfo :goodsInfo="goodsInfo"></detailsInfo>
+        <scroll class="content">
+            <!-- 商品轮播图 -->
+            <detailSwiper :topImgList="topImgList"></detailSwiper>
+            <!-- 商品信息 -->
+            <detailsInfo :goodsInfo="goodsInfo"></detailsInfo>
+            <!-- 商家信息 -->
+            <detailsBusiness :Business="Business"></detailsBusiness>
+        </scroll>
     </div>
 </template>
 
@@ -13,8 +17,11 @@
 import Details from './detailsNav'
 import detailSwiper from './detailSwiper'
 import detailsInfo from './detailsInfo'
+import detailsBusiness from './detailsBusiness'
 
-import {getDetail,Goods} from 'network/details'
+import scroll from 'components/scroll'
+
+import {getDetail,Goods,Business} from 'network/details'
 
 export default {
     name:'goodListDetails',
@@ -22,7 +29,8 @@ export default {
         return{
             iid:'',
             topImgList:[],
-            goodsInfo:{}//返回对象
+            goodsInfo:{},//返回对象
+            Business:{},
         }
     },
     created(){
@@ -40,17 +48,35 @@ export default {
                 //获取商品信息
                 const data = res.result
                 this.goodsInfo =new Goods(data.itemInfo,data.columns,data.shopInfo.services) //创建
+                this.Business =new Business(data.shopInfo) //创建
             })
         }
     },
     components:{
         Details,
         detailSwiper,
-        detailsInfo
+        detailsInfo,
+        detailsBusiness,
+        scroll
     }
 }
 </script>
 
 <style scoped>
-
+    .goodListDetails{
+        position: relative;
+        z-index: 999;
+        background: #fff;
+        height: 100vh;
+    }
+    .content{
+       position: absolute;
+       top: 1.3rem;
+       bottom: 0;
+       left: 0;
+       right: 0; 
+      
+      /* height: calc(100% - 1.3rem); */
+       
+    }
 </style>

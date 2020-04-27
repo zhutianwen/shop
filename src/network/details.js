@@ -9,7 +9,7 @@ export function getDetail(iid){
     })
 }
 
-export class Goods{  //导出一个类
+export class Goods{  //导出一个类  商品信息
     constructor(itemInfo,columns,services){//传入参数
         this.title = itemInfo.title
         this.discountBgColor = itemInfo.discountBgColor
@@ -20,5 +20,15 @@ export class Goods{  //导出一个类
         this.columns = columns
         this.services = services
         this.realPrice = itemInfo.lowNowPrice
+    }
+}
+
+export class Business{//商家信息
+    constructor(shopInfo){
+        this.logo = shopInfo.shopLogo
+        this.cGoods = shopInfo.cGoods
+        this.cSells = shopInfo.cSells
+        this.name = shopInfo.name
+        this.score = shopInfo.score
     }
 }

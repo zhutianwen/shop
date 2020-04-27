@@ -8,6 +8,7 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+//
 Vue.prototype.$bus = new Vue()
 
 
@@ -31,6 +32,7 @@ import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload,{
   loading:require('assets/images/loading.gif')
 })
+
 
 new Vue({
   el: '#app',
