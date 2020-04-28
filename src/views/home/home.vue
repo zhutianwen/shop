@@ -80,12 +80,12 @@ export default {
         }
     },
     activated(){//进入页面
-        // console.log('activated'); 
+        console.log('activated'); 
         this.$refs.scroll.scrollTo(0,this.saveY,0);
         this.$refs.scroll.refresh();
     },
     deactivated(){//离开页面
-        // console.log('deactivated');
+        console.log('deactivated');
         this.saveY = this.$refs.scroll.scroll.y //获取离开时bscroll的位置
     },
     created(){
@@ -136,7 +136,7 @@ export default {
             // 获取tabocontrol的距离
             // 所有组件都有一个属性 $el  用于获取组件中的元素
             this.tabOffsetTop = this.$refs.tabTop2.$el.offsetTop
-
+            // console.log(this.tabOffsetTop)
         },
         // 防抖动
         // debounce(func,delay){

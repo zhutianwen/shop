@@ -2,13 +2,19 @@
     <div class="goodListDetails">
         <!-- 导航栏 -->
         <Details></Details>
-        <scroll class="content">
+        <scroll class="content" ref="detailsroll">
             <!-- 商品轮播图 -->
             <detailSwiper :topImgList="topImgList"></detailSwiper>
             <!-- 商品信息 -->
             <detailsInfo :goodsInfo="goodsInfo"></detailsInfo>
             <!-- 商家信息 -->
             <detailsBusiness :Business="Business"></detailsBusiness>
+            <!-- 商品详情 -->
+            <detailImg :detailInfo="detailInfo" @imgload="imgload"></detailImg>
+            <!-- 商品参数 -->
+            <detailitemParams :itemParams="itemParams"></detailitemParams>
+            <!-- 商品评论 -->
+            <detailrate :rate="rate"></detailrate>
         </scroll>
     </div>
 </template>
@@ -18,6 +24,9 @@ import Details from './detailsNav'
 import detailSwiper from './detailSwiper'
 import detailsInfo from './detailsInfo'
 import detailsBusiness from './detailsBusiness'
+import detailImg from './detailImg'
+import detailitemParams from './detailitemParams'
+import detailrate from './detailrate'
 
 import scroll from 'components/scroll'
 
@@ -31,6 +40,9 @@ export default {
             topImgList:[],
             goodsInfo:{},//返回对象
             Business:{},
+            detailInfo:{},
+            itemParams:{},//参数
+            rate:{}
         }
     },
     created(){
@@ -49,15 +61,25 @@ export default {
                 const data = res.result
                 this.goodsInfo =new Goods(data.itemInfo,data.columns,data.shopInfo.services) //创建
                 this.Business =new Business(data.shopInfo) //创建
+                this.detailInfo = data.detailInfo
+                this.itemParams = data.itemParams
+                this.rate = data.rate
+                console.log(this.rate)
             })
-        }
+        },
+        imgload(){
+            this.$refs.detailsroll.refresh();
+        },
     },
     components:{
         Details,
         detailSwiper,
         detailsInfo,
         detailsBusiness,
-        scroll
+        scroll,
+        detailImg,
+        detailitemParams,
+        detailrate
     }
 }
 </script>

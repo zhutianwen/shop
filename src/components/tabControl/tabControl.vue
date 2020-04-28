@@ -13,7 +13,8 @@
 export default {
     data(){
         return{
-            currentIndex:0
+            currentIndex:0,
+            // gotop:false,
         }
     },
     props:{
@@ -29,6 +30,9 @@ export default {
             this.currentIndex = index
             // console.log(this.currentIndex)
             this.$emit('tabclick',index)//将事件从内部传出去 home页面监听此点击事件
+            // if(!this.gotop){
+
+            // }
         },
     },
 }

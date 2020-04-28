@@ -7,7 +7,7 @@
             <span class="bus-name">{{Business.name}}</span>
         </div>
         <div class="bus-count">
-            <div>
+            <div class="left-content">
                 <span class="left1">
                     <span v-if="Business.cSells">{{transNumber(Business.cSells,1)}}</span>
                     <div>总销量</div>
@@ -17,19 +17,20 @@
                     <div>全部宝贝</div>
                 </span>
             </div>
-            <span></span>
-            <div>
-                <div>
-                    <span></span>
+            <span style="height:1.5rem;display:inline-block;border:0.5px solid #cccccc"></span>
+            <div v-if="Business.score">
+                <div class="pin-fen">
+                    {{Business.score[0].name}}&nbsp;&nbsp;<span>{{Business.score[0].score}}</span>
                 </div>
-                <div>
-                    <span></span>
+                <div class="pin-fen">
+                    {{Business.score[1].name}}&nbsp;&nbsp;<span>{{Business.score[1].score}}</span>
                 </div>
-                <div>
-                    <span></span>
+                <div class="pin-fen">
+                    {{Business.score[2].name}}&nbsp;&nbsp;<span>{{Business.score[2].score}}</span>
                 </div>
             </div>
         </div>
+        <div class="into-shop">进店逛逛</div>
     </div>
 </template>
 
@@ -46,8 +47,12 @@ export default {
             }
         }
     },
+    mounted(){
+     
+    },
     methods:{
-        transNumber
+        transNumber,
+ 
     },
 }
 </script>
@@ -58,6 +63,8 @@ export default {
         margin: 0 auto;
         margin-top: 0.5rem;
         position: relative;
+        border-bottom: 0.042rem solid #efe9d4;
+        padding-bottom: 0.7rem;
     }
     .logo{
         display: inline-block;
@@ -73,4 +80,31 @@ export default {
         text-align: center;
         display: inline-block;
     }
+    .bus-count{
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    .pin-fen{
+        font-size: 0.4rem;
+    }
+    .pin-fen span{
+        color: coral;
+    }
+    .left-content{
+        margin-top: 0.3rem;
+    }
+    .into-shop{
+        width: 40%;
+        text-align: center;
+        font-size: 0.4rem;
+        margin: 0 auto;
+        border-radius: 8px;
+        background: #e4f2f5;
+        margin-top: 0.4rem;
+        height: 0.7rem;
+        line-height: 0.7rem;
+    }
+
 </style>
