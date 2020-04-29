@@ -15,6 +15,8 @@
             <detailitemParams :itemParams="itemParams"></detailitemParams>
             <!-- 商品评论 -->
             <detailrate :rate="rate"></detailrate>
+            <!-- 推荐数据 -->
+            <good-list :goods="recommends"></good-list>
         </scroll>
     </div>
 </template>
@@ -30,7 +32,10 @@ import detailrate from './detailrate'
 
 import scroll from 'components/scroll'
 
-import {getDetail,Goods,Business} from 'network/details'
+import {getDetail,Goods,Business,getRecom} from 'network/details'
+
+// import detailGoods from './detailGoods'
+import GoodList from 'components/goods/goodlist'
 
 export default {
     name:'goodListDetails',
@@ -42,14 +47,17 @@ export default {
             Business:{},
             detailInfo:{},
             itemParams:{},//参数
-            rate:{}
+            rate:{},
+            recommends:[]
         }
     },
     created(){
         this.iid = this.$route.query.id
         // console.log(this.iid)
-        this.getDetail()
         //获取商品信息
+        this.getDetail()
+        //请求推荐数据
+        this.getRecom()
         
     },
     methods:{
@@ -63,10 +71,20 @@ export default {
                 this.Business =new Business(data.shopInfo) //创建
                 this.detailInfo = data.detailInfo
                 this.itemParams = data.itemParams
-                this.rate = data.rate
-                console.log(this.rate)
+                if(data.rate.cRate !=0){
+                    this.rate = data.rate
+                }
+                // console.log(this.rate)
             })
         },
+        //请求推荐数据
+        getRecom(){
+            getRecom().then(res=>{
+                this.recommends = res.data.list
+                // console.log(this.recommends)
+            })
+        }, 
+
         imgload(){
             this.$refs.detailsroll.refresh();
         },
@@ -79,7 +97,9 @@ export default {
         scroll,
         detailImg,
         detailitemParams,
-        detailrate
+        detailrate,
+        GoodList
+        // detailGoods
     }
 }
 </script>

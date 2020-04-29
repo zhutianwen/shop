@@ -34,6 +34,9 @@ Vue.use(VueLazyload,{
 })
 
 
+
+
+
 new Vue({
   el: '#app',
   router,

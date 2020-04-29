@@ -71,7 +71,8 @@ export default {
             tabOffsetTop:0,
             isTabFixed:false,
             isNav:true,
-            saveY:0
+            saveY:0,
+            homeItemListen:null
         }
     },
     computed:{ //计算显示goods
@@ -80,29 +81,30 @@ export default {
         }
     },
     activated(){//进入页面
-        console.log('activated'); 
+        // console.log('activated'); 
         this.$refs.scroll.scrollTo(0,this.saveY,0);
         this.$refs.scroll.refresh();
     },
     deactivated(){//离开页面
-        console.log('deactivated');
+        // console.log('deactivated');
         this.saveY = this.$refs.scroll.scroll.y //获取离开时bscroll的位置
+
+        //取消全局事件监听
+        this.$bus.$off('itemtmg',this.homeItemListen)
     },
     created(){
         this.getHomemultidata();
-        // console.log(getHomemultidata());
-        
         this.getGoodsList('pop')
         this.getGoodsList('new')
         this.getGoodsList('sell')
     },
     mounted(){
+        this.homeItemListen = ()=>{
+            refresh()
+        }
         const refresh = debounce(this.$refs.scroll.refresh,50)
          //监听img加载
-        this.$bus.$on('itemtmg',()=>{
-            refresh()
-            // this.$refs.scroll.refresh()
-        })
+        this.$bus.$on('itemtmg',this.homeItemListen)
         
     },
     methods:{

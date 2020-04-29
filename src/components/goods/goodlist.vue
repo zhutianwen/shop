@@ -2,9 +2,7 @@
   <div class="container-water-fall">  
         <waterfall :col='col' :data="goods"  @scroll="scroll"  >  
             <template>
-                <!-- <div class="goods-list"> -->
                 <goodListitem v-for="(item,index) in goods" :goodsItem='item' :key="index"></goodListitem>
-                <!-- </div> -->
             </template>
         </waterfall>
     </div>
@@ -66,7 +64,7 @@ export default {
     }
    .vue-waterfall-column{
        width: 49%!important;
-       margin-bottom:1.4rem;
+       /* margin-bottom:1.4rem; */
    }
     
 </style>
