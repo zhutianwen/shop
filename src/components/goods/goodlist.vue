@@ -1,5 +1,5 @@
 <template>
-  <div class="container-water-fall">  
+  <div class="container-water-fall bgColor">  
         <waterfall :col='col' :data="goods"  @scroll="scroll"  >  
             <template>
                 <goodListitem v-for="(item,index) in goods" :goodsItem='item' :key="index"></goodListitem>
@@ -45,6 +45,9 @@ export default {
 
 
 <style>
+    .bgColor{
+        background: #f7f7f7;
+    }
     .goods-list{
         /* display: flex;
         justify-content: space-between;

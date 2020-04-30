@@ -50,6 +50,7 @@ import goodlist from 'components/goods/goodlist'
 import scroll from 'components/scroll'
 import backtop from 'components/backTop'
 import { debounce } from 'components/utils/utils'
+import {itemLsten} from 'assets/js/mixin'
 
 export default {
     data(){
@@ -72,7 +73,7 @@ export default {
             isTabFixed:false,
             isNav:true,
             saveY:0,
-            homeItemListen:null
+            // itemImgListen:''
         }
     },
     computed:{ //计算显示goods
@@ -99,14 +100,16 @@ export default {
         this.getGoodsList('sell')
     },
     mounted(){
-        this.homeItemListen = ()=>{
-            refresh()
-        }
-        const refresh = debounce(this.$refs.scroll.refresh,50)
-         //监听img加载
-        this.$bus.$on('itemtmg',this.homeItemListen)
+        // this.itemImgListen = ()=>{
+        //     refresh()
+        // }
+        // const refresh = debounce(this.$refs.scroll.refresh,50)
+        //  //监听img加载
+        // this.$bus.$on('itemtmg',this.itemImgListen)
+        // console.log('home')
         
     },
+    mixins:[itemLsten],
     methods:{
         //事件监听方法
         tabclick(index){

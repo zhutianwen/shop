@@ -32,7 +32,8 @@ export default {
     },
     methods:{
         changeClick(index){
-            this.currentIndex = index
+            this.currentIndex = index;
+            this.$emit('titleClick',index)
         },
         goBack(){
             this.$router.go(-1)

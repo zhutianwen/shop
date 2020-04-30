@@ -4,7 +4,7 @@
     <keep-alive exclude="goodListDetails">
       <router-view/>
     </keep-alive>
-    <tabbar></tabbar>
+    <tabbar v-show="$route.name!=='goodListDetails'"></tabbar>
   </div>
 </template>
 
@@ -16,12 +16,13 @@ export default {
   name: 'App',
   data(){
     return{
-
+      tab_show:true
     }
   },
   components:{
     tabbar,
   },
+  
 }
 </script>
 

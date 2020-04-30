@@ -2,7 +2,7 @@
     <div class="goodListDetails">
         <!-- 导航栏 -->
         <Details></Details>
-        <scroll class="content" ref="detailsroll">
+        <scroll class="content" ref="scroll">
             <!-- 商品轮播图 -->
             <detailSwiper :topImgList="topImgList"></detailSwiper>
             <!-- 商品信息 -->
@@ -34,8 +34,9 @@ import scroll from 'components/scroll'
 
 import {getDetail,Goods,Business,getRecom} from 'network/details'
 
-// import detailGoods from './detailGoods'
 import GoodList from 'components/goods/goodlist'
+import { debounce } from 'components/utils/utils'
+import {itemLsten} from 'assets/js/mixin'
 
 export default {
     name:'goodListDetails',
@@ -48,7 +49,8 @@ export default {
             detailInfo:{},
             itemParams:{},//参数
             rate:{},
-            recommends:[]
+            recommends:[],
+            // itemImgListen:''
         }
     },
     created(){
@@ -59,6 +61,19 @@ export default {
         //请求推荐数据
         this.getRecom()
         
+    },
+    mixins:[itemLsten],
+    mounted(){
+        // let refresh = debounce(this.$refs.scroll.refresh,50)
+        // this.itemImgListen = ()=>{
+        //     refresh()
+        // }
+        // this.$bus.$on('itemtmg',this.itemImgListen)
+        // console.log('asd')
+    },
+    destroyed(){
+        // console.log('destroyed')
+        this.$bus.$off('itemtmg',this.itemImgListen)
     },
     methods:{
         getDetail(){
@@ -86,7 +101,7 @@ export default {
         }, 
 
         imgload(){
-            this.$refs.detailsroll.refresh();
+            this.$refs.scroll.refresh();
         },
     },
     components:{
@@ -106,10 +121,10 @@ export default {
 
 <style scoped>
     .goodListDetails{
-        position: relative;
         z-index: 999;
         background: #fff;
         height: 100vh;
+        position: relative;
     }
     .content{
        position: absolute;
