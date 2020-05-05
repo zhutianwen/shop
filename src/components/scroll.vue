@@ -31,7 +31,7 @@
                 probeType:this.probeType,
                 pullUpLoad:this.pullUpLoad    
             });
-            //2.监听滚动位置
+            //2.监听滚动事件
             this.scroll.on('scroll',(position)=>{
                 // console.log(position)
                 this.$emit('scroll',position) //定义scroll方法  传入position参数

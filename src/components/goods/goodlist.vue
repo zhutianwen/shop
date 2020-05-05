@@ -46,7 +46,7 @@ export default {
 
 <style>
     .bgColor{
-        background: #f7f7f7;
+        /* background: #f7f7f7; */
     }
     .goods-list{
         /* display: flex;

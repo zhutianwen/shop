@@ -1,8 +1,8 @@
 <template>
     <div class="goodListDetails">
         <!-- 导航栏 -->
-        <Details></Details>
-        <scroll class="content" ref="scroll">
+        <Details @titleClick = "titleClick" ref = "nav"></Details>
+        <scroll class="content" ref="scroll" @scroll = "detailCon" :probe-type="3">
             <!-- 商品轮播图 -->
             <detailSwiper :topImgList="topImgList"></detailSwiper>
             <!-- 商品信息 -->
@@ -12,12 +12,14 @@
             <!-- 商品详情 -->
             <detailImg :detailInfo="detailInfo" @imgload="imgload"></detailImg>
             <!-- 商品参数 -->
-            <detailitemParams :itemParams="itemParams"></detailitemParams>
+            <detailitemParams ref="params" :itemParams="itemParams"></detailitemParams>
             <!-- 商品评论 -->
-            <detailrate :rate="rate"></detailrate>
+            <detailrate ref="rate" :rate="rate"></detailrate>
             <!-- 推荐数据 -->
-            <good-list :goods="recommends"></good-list>
+            <good-list ref="recommend" :goods="recommends"></good-list>
         </scroll>
+        <!-- 底部工具栏 -->
+        <detail-bar></detail-bar>
     </div>
 </template>
 
@@ -29,6 +31,7 @@ import detailsBusiness from './detailsBusiness'
 import detailImg from './detailImg'
 import detailitemParams from './detailitemParams'
 import detailrate from './detailrate'
+import detailBar from './detailBar'
 
 import scroll from 'components/scroll'
 
@@ -50,6 +53,9 @@ export default {
             itemParams:{},//参数
             rate:{},
             recommends:[],
+            titleTop:[],
+            getTitleTop:'',//防抖
+            currentIndex:""
             // itemImgListen:''
         }
     },
@@ -60,7 +66,17 @@ export default {
         this.getDetail()
         //请求推荐数据
         this.getRecom()
-        
+
+        //防抖
+        this.getTitleTop = debounce(()=>{
+            this.titleTop = [];
+            this.titleTop.push(0);
+            this.titleTop.push(this.$refs.params.$el.offsetTop);
+            this.titleTop.push(this.$refs.rate.$el.offsetTop);
+            this.titleTop.push(this.$refs.recommend.$el.offsetTop);
+            this.titleTop.push(Number.MAX_VALUE)
+            // console.log(this.titleTop)
+        },100) 
     },
     mixins:[itemLsten],
     mounted(){
@@ -78,7 +94,7 @@ export default {
     methods:{
         getDetail(){
             getDetail(this.iid).then(res=>{
-                console.log(res)
+                // console.log(res)
                 this.topImgList = res.result.itemInfo.topImages
                 //获取商品信息
                 const data = res.result
@@ -99,9 +115,43 @@ export default {
                 // console.log(this.recommends)
             })
         }, 
-
         imgload(){
             this.$refs.scroll.refresh();
+            // 图片加载完成后 获取高度
+            // this.titleTop.push(0);
+            // this.titleTop.push(this.$refs.params.$el.offsetTop);
+            // this.titleTop.push(this.$refs.rate.$el.offsetTop);
+            // this.titleTop.push(this.$refs.recommend.$el.offsetTop);
+            this.getTitleTop();
+            
+        },
+        titleClick(index){
+            // console.log(index)
+            this.$refs.scroll.scrollTo(0,-this.titleTop[index],200)
+        },
+        detailCon(position){
+            // console.log(position)
+            //获取y值
+            let positionY = -position.y
+            //positionY 与主题值比较 0, 15550, 16714, 16938
+            //positionY 在0和15550之间 index = 0
+            //positionY 在15550和16714之间 index = 1
+            //positionY 在16714和16938之间 index = 2
+            //positionY 超过16938 index = 3
+            let length = this.titleTop.length;
+            for(let i = 0;i < length-1;i++){
+                // i * 1
+                // if(this.currentIndex !==i && ((i<length-1 && positionY >= this.titleTop[i] && positionY < this.titleTop[i+1]) || (i === length-1 && positionY >= this.titleTop[i]))){
+                //     this.currentIndex = i
+                //     // console.log(this.currentIndex);
+                //     this.$refs.nav.currentIndex = this.currentIndex
+                // }
+                if(this.currentIndex !==i &&(positionY >= this.titleTop[i] && positionY < this.titleTop[i+1])){
+                    this.currentIndex = i
+                    this.$refs.nav.currentIndex = this.currentIndex
+                    console.log(this.currentIndex)
+                }
+            }
         },
     },
     components:{
@@ -113,7 +163,8 @@ export default {
         detailImg,
         detailitemParams,
         detailrate,
-        GoodList
+        GoodList,
+        detailBar
         // detailGoods
     }
 }
@@ -129,7 +180,7 @@ export default {
     .content{
        position: absolute;
        top: 1.3rem;
-       bottom: 0;
+       bottom: 1.3rem;
        left: 0;
        right: 0; 
       

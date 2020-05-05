@@ -91,7 +91,7 @@ export default {
         this.saveY = this.$refs.scroll.scroll.y //获取离开时bscroll的位置
 
         //取消全局事件监听
-        this.$bus.$off('itemtmg',this.homeItemListen)
+        this.$bus.$off('itemtmg',this.itemImgListen)
     },
     created(){
         this.getHomemultidata();

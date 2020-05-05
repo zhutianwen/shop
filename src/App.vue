@@ -16,7 +16,6 @@ export default {
   name: 'App',
   data(){
     return{
-      tab_show:true
     }
   },
   components:{
