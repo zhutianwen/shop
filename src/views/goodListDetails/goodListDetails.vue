@@ -4,6 +4,9 @@
         <Details @titleClick = "titleClick" ref = "nav"></Details>
         <scroll class="content" ref="scroll" @scroll = "detailCon" :probe-type="3">
             <!-- 商品轮播图 -->
+            <ul>
+                <li v-for="item in $store.state.carList">{{item}}</li>
+            </ul>
             <detailSwiper :topImgList="topImgList"></detailSwiper>
             <!-- 商品信息 -->
             <detailsInfo :goodsInfo="goodsInfo"></detailsInfo>
@@ -19,7 +22,9 @@
             <good-list ref="recommend" :goods="recommends"></good-list>
         </scroll>
         <!-- 底部工具栏 -->
-        <detail-bar></detail-bar>
+        <detail-bar @addCar="addCar"></detail-bar>
+        <!-- 回到顶部图标 -->
+        <backtop @click.native="backtop" v-show="isShow"></backtop>
     </div>
 </template>
 
@@ -39,7 +44,7 @@ import {getDetail,Goods,Business,getRecom} from 'network/details'
 
 import GoodList from 'components/goods/goodlist'
 import { debounce } from 'components/utils/utils'
-import {itemLsten} from 'assets/js/mixin'
+import {itemLsten,backTop} from 'assets/js/mixin'
 
 export default {
     name:'goodListDetails',
@@ -78,7 +83,7 @@ export default {
             // console.log(this.titleTop)
         },100) 
     },
-    mixins:[itemLsten],
+    mixins:[itemLsten,backTop],
     mounted(){
         // let refresh = debounce(this.$refs.scroll.refresh,50)
         // this.itemImgListen = ()=>{
@@ -152,7 +157,23 @@ export default {
                     console.log(this.currentIndex)
                 }
             }
+            //
+            this.isShow = -position.y > 1000
         },
+        // 添加购物车
+        addCar(){
+            //1.获取购物车需要展示的商品信息
+            const product = {};
+            product.image = this.topImgList[0];
+            product.title = this.goodsInfo.title;
+            product.desc = this.goodsInfo.desc;
+            product.price = this.goodsInfo.realPrice;
+            product.iid = this.iid
+
+            //2.将商品添加到购物车
+            // this.$store.commit('addCar',product)
+            this.$store.dispatch('addCar',product)
+        }
     },
     components:{
         Details,
@@ -164,7 +185,7 @@ export default {
         detailitemParams,
         detailrate,
         GoodList,
-        detailBar
+        detailBar,
         // detailGoods
     }
 }

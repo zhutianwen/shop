@@ -13,7 +13,7 @@
                 <i class="iconfont icon-shoucang1"></i>
                 <span class="barTitle">收藏</span>
             </div>
-            <div class="bottom-title" style="line-height:1.3rem;background:#ffd01e">
+            <div @click="addCar" class="bottom-title" style="line-height:1.3rem;background:#ffd01e">
                 <span class="barTitle">加入购物车</span>
             </div>
             <div class="bottom-title" style="line-height:1.3rem;background:#ee7b85;color:#fff">
@@ -25,7 +25,12 @@
 
 <script>
 export default {
-    name:'detailBar'
+    name:'detailBar',
+    methods:{
+        addCar(){
+            this.$emit('addCar')    
+        },
+    },
 }
 </script>
 

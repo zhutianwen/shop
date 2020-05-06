@@ -48,9 +48,9 @@ import navbar from 'components/navbar'
 import tabControl from 'components/tabControl/tabControl'
 import goodlist from 'components/goods/goodlist'
 import scroll from 'components/scroll'
-import backtop from 'components/backTop'
+// import backtop from 'components/backTop'
 import { debounce } from 'components/utils/utils'
-import {itemLsten} from 'assets/js/mixin'
+import {itemLsten,backTop} from 'assets/js/mixin'
 
 export default {
     data(){
@@ -68,7 +68,6 @@ export default {
                 'sell':{ page:0, list:[] },
             },
             currentType:'pop',
-            isShow:false,
             tabOffsetTop:0,
             isTabFixed:false,
             isNav:true,
@@ -109,7 +108,8 @@ export default {
         // console.log('home')
         
     },
-    mixins:[itemLsten],
+    mixins:[itemLsten,backTop],
+
     methods:{
         //事件监听方法
         tabclick(index){
@@ -127,9 +127,6 @@ export default {
             }
             this.$refs.tabTop1.currentIndex = index
             this.$refs.tabTop2.currentIndex = index
-        },
-        backtop(){
-            this.$refs.scroll.scrollTo(0,0);
         },
         contentScroll(position){
             // console.log(position) 
@@ -186,7 +183,6 @@ export default {
         tabControl,
         goodlist,
         scroll,
-        backtop
     },
 }
 </script>

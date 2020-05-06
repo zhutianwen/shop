@@ -19,7 +19,8 @@
     "vue-masonry": "^0.11.8",
     "vue-router": "^3.0.1",
     "vue-text-format": "^1.2.5",
-    "vue-waterfall2": "^1.9.6"
+    "vue-waterfall2": "^1.9.6",
+    "vuex": "^3.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

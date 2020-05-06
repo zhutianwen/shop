@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from "./store";
+
 // import Bus from './views/bus/bus';  
 // Vue.prototype.$bus = Bus;
 
@@ -40,6 +42,7 @@ Vue.use(VueLazyload,{
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
