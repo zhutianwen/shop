@@ -19,6 +19,8 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Vant);
 
+
+
 //引入阿里巴巴矢量图标
 import './fonts/iconfont.css'
 

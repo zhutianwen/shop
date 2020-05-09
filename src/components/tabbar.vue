@@ -41,6 +41,14 @@
             },
 
         },
+        watch: {
+        //监听路由变化
+            $route(to) {
+                this.tabbarActive(to.path);
+                console.log(this.tabbarActive(to.path))
+            }
+        },
+        
     }
 </script>
 

@@ -4,9 +4,9 @@
         <Details @titleClick = "titleClick" ref = "nav"></Details>
         <scroll class="content" ref="scroll" @scroll = "detailCon" :probe-type="3">
             <!-- 商品轮播图 -->
-            <ul>
+            <!-- <ul>
                 <li v-for="item in $store.state.carList">{{item}}</li>
-            </ul>
+            </ul> -->
             <detailSwiper :topImgList="topImgList"></detailSwiper>
             <!-- 商品信息 -->
             <detailsInfo :goodsInfo="goodsInfo"></detailsInfo>
@@ -46,6 +46,7 @@ import GoodList from 'components/goods/goodlist'
 import { debounce } from 'components/utils/utils'
 import {itemLsten,backTop} from 'assets/js/mixin'
 
+import { Toast } from 'vant';
 export default {
     name:'goodListDetails',
     data(){
@@ -173,6 +174,12 @@ export default {
             //2.将商品添加到购物车
             // this.$store.commit('addCar',product)
             this.$store.dispatch('addCar',product)
+
+            //3.判断购车里面有数据弹出弹窗
+            if(product){
+                // console.log(product)
+                Toast.success('已添加购物车');
+            }
         }
     },
     components:{

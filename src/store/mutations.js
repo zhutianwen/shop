@@ -21,6 +21,7 @@ export default{
         payload.count++
     },
     [ADD_TO_CAR](state,payload){
+        payload.checked = false //添加checked属性 默认不选中
         state.carList.push(payload)
     },
 
