@@ -1,10 +1,14 @@
 <template>
     <div class="tabbar">
-        <van-tabbar v-model="active">
-            <van-tabbar-item @click="goHome" class="iconfont icon-tabbar icon-shouye">首页</van-tabbar-item>
-            <van-tabbar-item @click="goCategory" class="iconfont icon-tabbar icon-fenlei-0">分类</van-tabbar-item>
-            <van-tabbar-item @click="goCart" class="iconfont icon-tabbar icon-gouwuche">购物车</van-tabbar-item>
-            <van-tabbar-item @click="goMine" class="iconfont icon-tabbar icon-wodedangxuan">我的
+        <!-- <router-view /> -->
+        <van-tabbar route>
+            <van-tabbar-item 
+            @click="tabClick(index,item.path)" 
+            v-for="(item,index) in tarbar"
+             :key="index"
+              replace :to='item.path'>
+                <div class="iconfont ico" v-html="item.icon"></div>
+                <div class="bar-title">{{item.title}}</div>
             </van-tabbar-item>
         </van-tabbar>
     </div>
@@ -15,40 +19,47 @@
     export default {
         data() {
             return {
-                active: 0
+                // active: 0,
+                currentIndex:0,
+                currentPath:'/home',
+                tarbar:[
+                    {
+                        path:'/home',
+                        title:'首页',
+                        icon:'&#xe600'
+                    },
+                    {
+                        path:'/category',
+                        title:'分类',
+                        icon:'&#xe603'
+                    },
+                    {
+                        path:'/shopCart',
+                        title:'购物车',
+                        icon:'&#xe604'
+                    },
+                    {
+                        path:'/mine',
+                        title:'我的',
+                        icon:'&#xe602'
+                    },
+
+                ]
             }
         },
         methods:{
-            goHome(){
-                this.$router.push({
-                    path:'/home'
-                })
+            tabClick(index,val){
+                // console.log(val)
+                this.currentIndex = index;
+                this.$router.push(val)
             },
-            goCategory(){
-                this.$router.push({
-                    path:'/category'
-                })
-            },
-            goCart(){
-                this.$router.push({
-                    path:'/shopCart'
-                })
-            },
-            goMine(){
-                this.$router.push({
-                    path:'/mine'
-                })
-            },
-
         },
-        watch: {
-        //监听路由变化
-            $route(to) {
-                this.tabbarActive(to.path);
-                console.log(this.tabbarActive(to.path))
-            }
-        },
-        
+    
+        // watch:{
+        //     $route(to,from){
+        //         console.log(to.path);
+        //     }
+        // },
     }
 </script>
 
@@ -59,8 +70,16 @@
     .van-tabbar-item__text{
         font-size: 0.2rem;
     }
-    .icon-tabbar{
+    .ico{
+        text-align: center;
         font-size: 0.45rem;
+    }
+    .bar-title{
+        margin-top: 0.1rem;
+        font-size: 0.4rem;
+    }
+    .van-tabbar-item--active {
+        color: #ee7b85;
     }
 </style>
 

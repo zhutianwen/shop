@@ -1,6 +1,8 @@
 <template>
     <div class="TotalPrice">
-        <checkButton class="totalcheck"></checkButton>
+        <checkButton class="totalcheck"
+         :is-checked="isSelectAll"
+          @click.native="allClick"></checkButton>
         <div class='item1'>全选</div>
         <div class='item2'>合计 {{totalPric}}</div>
         <div class='item3'>去计算({{calculation}})</div>
@@ -24,6 +26,31 @@ export default {
         calculation(){
             return this.$store.state.carList.filter(item =>item.checked).length
         },
+        isSelectAll(){
+        //    return !(this.$store.state.carList.filter(item => !item.checked).length)
+            if(this.$store.state.carList.length === 0){
+                return false
+            }else{
+                return !this.$store.state.carList.find(item => !item.checked) //寻找到未选中的商品
+            }
+           
+        //    for( let item of this.$store.state.carList){
+        //        if(!item.checked){
+        //            return false
+        //        }else{
+        //            return true
+        //        }
+        //    }
+        },
+    },
+    methods:{
+        allClick(){
+            if(this.isSelectAll){//全部选中
+                this.$store.state.carList.forEach(item => item.checked = false)
+            }else{//未选中
+                this.$store.state.carList.forEach(item => item.checked = true)
+            }
+        }
     },
     components:{
         checkButton
