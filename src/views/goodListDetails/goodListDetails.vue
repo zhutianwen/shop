@@ -47,6 +47,8 @@ import { debounce } from 'components/utils/utils'
 import {itemLsten,backTop} from 'assets/js/mixin'
 
 import { Toast } from 'vant';
+import { mapActions } from 'vuex'
+
 export default {
     name:'goodListDetails',
     data(){
@@ -98,6 +100,9 @@ export default {
         this.$bus.$off('itemtmg',this.itemImgListen)
     },
     methods:{
+        ...mapActions([
+            'addCart'
+        ]),
         getDetail(){
             getDetail(this.iid).then(res=>{
                 // console.log(res)
@@ -173,13 +178,22 @@ export default {
 
             //2.将商品添加到购物车
             // this.$store.commit('addCar',product)
-            this.$store.dispatch('addCar',product)
 
-            //3.判断购车里面有数据弹出弹窗
-            if(product){
-                // console.log(product)
+            this.addCart(product).then(res=>{
+                // console.log(res)
                 Toast.success('已添加购物车');
-            }
+            })
+
+            // this.$store.dispatch('addCart',product).then(res=>{
+            //     console.log(res)
+            // })
+
+         
+            
+            // if(product){
+            //     // console.log(product)
+            //     Toast.success('已添加购物车');
+            // }
         }
     },
     components:{

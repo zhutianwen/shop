@@ -37,6 +37,9 @@ Vue.use(VueLazyload,{
   loading:require('assets/images/loading.gif')
 })
 
+//解决移动端300ms延迟
+import FastClick from 'fastclick'
+FastClick.attach(document.body) 
 
 
 
