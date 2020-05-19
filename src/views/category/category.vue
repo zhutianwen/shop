@@ -47,7 +47,7 @@ export default {
         },
         categoryClick(item){
             this.maitKey = item.maitKey
-            console.log(this.maitKey);
+            // console.log(this.maitKey);
             getSubCategory(this.maitKey).then(res => {
                 this.treeContent = res.data.list
             })

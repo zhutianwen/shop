@@ -10,7 +10,9 @@ html {
     /* 解决IOS默认滑动很卡的情况 */
     -webkit-overflow-scrolling : touch;
 }
-
+* {
+    touch-action: pan-y;
+}
 /* 禁止缩放表单 */
 input[type="submit"], input[type="reset"], input[type="button"], input {
     resize: none;

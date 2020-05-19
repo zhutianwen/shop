@@ -64,6 +64,7 @@
 </script>
 
 <style>
+    
     .van-tabbar{
         height: 1.35rem;
     }
