@@ -8,7 +8,7 @@
               <span class="iconfont icon-shoucang"></span> {{goodsItem.cfav}}
             </span>
         </div>
-    </div>
+    </div>   
     
 </template>
 
@@ -27,11 +27,6 @@ export default {
             return this.goodsItem.image || this.goodsItem.show.img
         }
     },
-    // computed:{
-    //     showImg(){
-    //         return this.goodsItem.image ||goodsItem.show.img
-    //     }
-    // },
     methods:{
         imageLoad(){
             // console.log('imageLoad')

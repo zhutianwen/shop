@@ -161,6 +161,7 @@ export default {
             getHomemultidata().then(res=>{
                 // console.log(res)
                 this.banner = res.data.banner.list
+                // alert(typeof (this.banner))
                 this.recommend = res.data.recommend.list
             });
         },
