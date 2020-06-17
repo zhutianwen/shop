@@ -13,7 +13,7 @@
     "axios": "^0.19.1",
     "better-scroll": "^1.15.2",
     "fastclick": "^1.0.6",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lazyload": "^2.0.0-rc.2",
     "vant": "^2.4.2-beta.2",
     "vue": "^2.5.2",
